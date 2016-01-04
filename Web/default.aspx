@@ -120,7 +120,7 @@
                         </td>
                         <td>
                             <i id="Icon" runat="server"></i>&nbsp;
-                    <asp:HyperLink ID="BrowseLink" runat="server"><%# Item.Name %></asp:HyperLink>
+                            <asp:HyperLink ID="BrowseLink" runat="server"><%# Item.Name %></asp:HyperLink>
                             <asp:Literal ID="FileName" runat="server" Text='<%#: Item.Name %>' />
                         </td>
                         <td>
@@ -157,7 +157,7 @@
                     <li>
                         <asp:Panel ID="IconWrap" runat="server" CssClass="tile-wrap">
                             <asp:HyperLink ID="BrowseLink" runat="server">
-                        <img alt="Directory" src="/images/icons/125x125/folder.png" />
+                                <img alt="Directory" src="/images/icons/125x125/folder.png" />
                             </asp:HyperLink>
                         </asp:Panel>
                         <asp:Panel ID="ThumbnailWrap" runat="server" CssClass="tile-wrap">
@@ -166,7 +166,8 @@
                         <div class="tile-name">
                             <label>
                                 <asp:CheckBox ID="TileViewItemCheckbox" runat="server" />
-                                <asp:Literal ID="FileName" runat="server" Text='<%#: Item.Name %>' /></label>
+                                <asp:Literal ID="FileName" runat="server" Text='<%#: Item.Name %>' />
+                            </label>
                         </div>
                     </li>
                 </ItemTemplate>
@@ -179,7 +180,7 @@
                             <h4 class="modal-title" id="create-directory-label">Create a Directory</h4>
                         </div>
                         <div class="modal-body">
-                            <asp:ValidationSummary ID="valCreateDirectoryFields" runat="server" ValidationGroup="CreateDirectoryGroup" HeaderText="The following problems occured when submitting the form:" CssClass="alert alert-danger" />
+                            <asp:ValidationSummary ID="CreateDirectoryValSummary" runat="server" ValidationGroup="CreateDirectoryGroup" HeaderText="The following problems occured when submitting the form:" CssClass="alert alert-danger" />
                             <div class="form-group">
                                 <asp:Label ID="CreateDirectoryLabel" runat="server" AssociatedControlID="CreateDirectoryField">Directory Name: </asp:Label>
                                 <asp:TextBox ID="CreateDirectoryField" runat="server" CssClass="form-control" />
