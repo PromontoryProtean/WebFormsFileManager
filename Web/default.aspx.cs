@@ -42,16 +42,16 @@ public partial class _default : System.Web.UI.Page
         var dirCount = _currentDirectory.Length - _currentDirectory.Replace("/", "").Length;
 
         var qs = HttpUtility.ParseQueryString(Request.QueryString.ToString());
-        foreach (string s in _currentDirectory.Remove(0, 1).Split('/'))
+        foreach (string crumb in _currentDirectory.Remove(0, 1).Split('/'))
         {
-            url.Append("/" + s);
+            url.Append("/" + crumb);
             i += 1;
             if (i == dirCount)
-                crumbs.Append("<li>" + s + "</li>" + Environment.NewLine);
+                crumbs.Append("<li>" + crumb + "</li>" + Environment.NewLine);
             else
             {
                 qs.Set("dir", Server.UrlEncode(url.ToString()));
-                crumbs.Append("<li><a href=\"" + Request.Url.LocalPath + "?" + qs + "\">" + s + "</a></li>" + Environment.NewLine);
+                crumbs.Append("<li><a href=\"" + Request.Url.LocalPath + "?" + qs + "\">" + crumb + "</a></li>" + Environment.NewLine);
             }
         }
         crumbs.Insert(0, "<ol class=\"breadcrumb\">" + Environment.NewLine);
@@ -98,15 +98,15 @@ public partial class _default : System.Web.UI.Page
             // image upload settings
             if (Request.Cookies["ImageUploadSettings"] != null)
             {
-                bool doResizeImages = false;
+                var doResizeImages = false;
                 bool.TryParse(Request.Cookies["ImageUploadSettings"]["doResizeImages"], out doResizeImages);
                 DoResizeImages.Checked = doResizeImages;
 
-                int width = 0;
+                var width = 0;
                 int.TryParse(Request.Cookies["ImageUploadSettings"]["width"], out width);
                 WidthField.Text = width > 0 ? width.ToString() : "";
 
-                int height = 0;
+                var height = 0;
                 int.TryParse(Request.Cookies["ImageUploadSettings"]["height"], out height);
                 HeightField.Text = height > 0 ? height.ToString() : "";
             }
@@ -211,7 +211,7 @@ public partial class _default : System.Web.UI.Page
             if (ImageHelpers.IsValidImageExtension(fileInfo.Name))
             {
                 thumbnail.ImageUrl = (!string.IsNullOrWhiteSpace(_currentDirectory) && Server.UrlDecode(_currentDirectory).StartsWith("/secure-files"))
-                    ? "/secure-files.axd/" + fileInfo.Name + "?width=125&height=125&mode=max&dir=" + Server.UrlEncode(_currentDirectory)
+                    ? "/secure-image.ashx/" + fileInfo.Name + "?width=125&height=125&mode=max&dir=" + Server.UrlEncode(_currentDirectory)
                     : _currentDirectory + "/" + fileInfo.Name + "?width=125&height=125&mode=max";
                 thumbnail.Attributes.Add("data-path", _currentDirectory + "/" + fileInfo.Name);
                 thumbnail.CssClass = "thumb";
@@ -254,7 +254,7 @@ public partial class _default : System.Web.UI.Page
                     if (cb.Checked)
                     {
                         var l = (Literal)i.FindControl("FileName");
-                        string path = Server.MapPath("~" + _rootDirectory + _currentDirectory + "/" + l.Text);
+                        var path = Server.MapPath("~" + _rootDirectory + _currentDirectory + "/" + l.Text);
                         if (((Panel)i.FindControl("IconWrap")).Visible)
                             Directory.Delete(path, true);
                         else
@@ -295,15 +295,15 @@ public partial class _default : System.Web.UI.Page
         var files = dir.GetFileSystemInfos();
 
         var l = new List<FileSystemInfo>();
-        foreach (FileSystemInfo f in files)
+        foreach (var fileSystemInfo in files)
         {
-            if (f is DirectoryInfo)
-                l.Add(f);
+            if (fileSystemInfo is DirectoryInfo)
+                l.Add(fileSystemInfo);
         }
-        foreach (FileSystemInfo f in files)
+        foreach (var fileSystemInfo in files)
         {
-            if (f is FileInfo)
-                l.Add(f);
+            if (fileSystemInfo is FileInfo)
+                l.Add(fileSystemInfo);
         }
 
         return l;

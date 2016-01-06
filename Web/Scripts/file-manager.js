@@ -29,7 +29,7 @@
                 {
                     s += "<br />Dimensions: " + data.Dimensions + "</p>";
                     if (filePath.indexOf("/secure-files") == 0)
-                        s += "<img src=\"/secure-files.axd/" + data.FileName + "?width=350&height=500&mode=max&dir=" + encodeURIComponent(filePath.replace("/" + data.FileName, "")) + "\" alt=\"" + data.FileName + "\" />";
+                        s += "<img src=\"/secure-image.ascx/" + data.FileName + "?width=350&height=500&mode=max&dir=" + encodeURIComponent(filePath.replace("/" + data.FileName, "")) + "\" alt=\"" + data.FileName + "\" />";
                     else
                         s += "<img src=\"" + filePath + "?width=350&height=500&mode=max\" alt=\"" + data.FileName + "\" />";
                 }

@@ -11,8 +11,9 @@ public class SecureThumbnailService : IImageService
 {
     /// <summary>
     /// The prefix for the given implementation.
+    /// I am using ashx instead of axd because IIS7 does not enable forms authentication by default on axd files
     /// </summary>
-    private string _prefix = "secure-files.axd";
+    private string _prefix = "secure-image.ashx";
 
     /// <summary>
     /// Gets or sets the prefix for the given implementation.

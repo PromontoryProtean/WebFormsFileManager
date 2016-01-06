@@ -11,15 +11,15 @@ public class MediaFileController : ApiController
         if (filePath.StartsWith("/secure-files"))
             filePath = filePath.Replace("/secure-files", "/App_Data/secure-files");
 
-        var m = new MediaFile();
+        var mediaFile = new MediaFile();
         var fi = new FileInfo(HttpContext.Current.Server.MapPath("~" + filePath));
-        m.FilePath = path;
-        m.FileName = fi.Name;
-        m.FileExtension = fi.Extension;
-        m.CreatedUtc = fi.CreationTimeUtc;
-        m.LastWriteUtc = fi.LastWriteTimeUtc;
-        m.SizeKb = fi.Length / 1000;
+        mediaFile.FilePath = path;
+        mediaFile.FileName = fi.Name;
+        mediaFile.FileExtension = fi.Extension;
+        mediaFile.CreatedUtc = fi.CreationTimeUtc;
+        mediaFile.LastWriteUtc = fi.LastWriteTimeUtc;
+        mediaFile.SizeKb = fi.Length / 1000;
 
-        return m;
+        return mediaFile;
     }
 }

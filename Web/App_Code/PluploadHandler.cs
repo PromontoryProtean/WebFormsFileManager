@@ -45,7 +45,7 @@ public class PluploadHandler : IHttpHandler
                 context.Response.Write("{\"jsonrpc\" : \"2.0\", \"error\" : {\"code\": 400, \"message\": \"An upload directory was not specified.\"}, \"id\" : \"id\"}");
             }
 
-            bool hasPermission = Utilities.VerifyWritePermission(uploadDirectory);
+            var hasPermission = Utilities.VerifyWritePermission(uploadDirectory);
             if (!hasPermission)
             {
                 context.Response.StatusCode = 500;
